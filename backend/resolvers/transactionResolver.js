@@ -4,7 +4,7 @@ const transactionResolver = {
 	Query: {
 		transactions: async (_, __, context) => {
 			try {
-				if (!context.gerUser()) {
+				if (!context.getUser()) {
 					throw new Error("Unauthorized");
 				}
 
@@ -21,6 +21,9 @@ const transactionResolver = {
 		transaction: async (_, { transactionId }) => {
 			try {
 				const transaction = await Transaction.findById(transactionId);
+				if (!transaction) {
+					throw new Error("Transaction can't be found");
+				}
 				return transaction;
 			} catch (error) {
 				console.log(`Error in transaction query: ${error.message}`);
