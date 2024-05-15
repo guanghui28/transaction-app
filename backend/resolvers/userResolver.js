@@ -10,7 +10,7 @@ const userResolver = {
 				return user;
 			} catch (error) {
 				console.log(`Error in authUser: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 		user: async (_, { userId }) => {
@@ -19,7 +19,7 @@ const userResolver = {
 				return user;
 			} catch (error) {
 				console.log(`Error in user query: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 	},
@@ -56,13 +56,14 @@ const userResolver = {
 				return newUser;
 			} catch (error) {
 				console.log(`Error in signUp: `, error.message);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 
 		login: async (_, { input }, context) => {
 			try {
 				const { username, password } = input;
+				if (!username || !password) throw new Error("All fields are required!");
 				const { user } = await context.authenticate("graphql-local", {
 					username,
 					password,
@@ -72,21 +73,21 @@ const userResolver = {
 				return user;
 			} catch (error) {
 				console.log(`Error in login: `, error.message);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 
 		logout: async (_, __, context) => {
 			try {
 				await context.logout();
-				req.session.destroy((error) => {
+				context.req.session.destroy((error) => {
 					if (error) throw error;
 				});
-				req.clearCookie("connect.sid");
+				context.res.clearCookie("connect.sid");
 				return { message: "Logged out success!" };
 			} catch (error) {
 				console.log(`Error in logout: `, error.message);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 	},

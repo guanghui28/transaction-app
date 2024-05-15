@@ -14,7 +14,7 @@ const transactionResolver = {
 				return transactions;
 			} catch (error) {
 				console.log(`Error in transactions query: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 
@@ -24,7 +24,7 @@ const transactionResolver = {
 				return transaction;
 			} catch (error) {
 				console.log(`Error in transaction query: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 		// TODO => ADD CATEGORY STATS
@@ -40,7 +40,7 @@ const transactionResolver = {
 				return newTransaction;
 			} catch (error) {
 				console.log(`Error in createTransaction: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 		updateTransaction: async (_, { input }, context) => {
@@ -53,7 +53,7 @@ const transactionResolver = {
 				return updatedTransaction;
 			} catch (error) {
 				console.log(`Error in updateTransaction: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 		deleteTransaction: async (_, { transactionId }, context) => {
@@ -64,7 +64,7 @@ const transactionResolver = {
 				return deletedTransaction;
 			} catch (error) {
 				console.log(`Error in deleteTransaction: ${error.message}`);
-				throw new Error("Internal Server Error");
+				throw new Error(error.message);
 			}
 		},
 	},
