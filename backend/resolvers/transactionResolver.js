@@ -2,7 +2,7 @@ import Transaction from "../models/transactionModel.js";
 
 const transactionResolver = {
 	Query: {
-		transactions: async (_, _, context) => {
+		transactions: async (_, __, context) => {
 			try {
 				if (!context.gerUser()) {
 					throw new Error("Unauthorized");
@@ -18,7 +18,7 @@ const transactionResolver = {
 			}
 		},
 
-		transaction: async (_, { transactionId }, context) => {
+		transaction: async (_, { transactionId }) => {
 			try {
 				const transaction = await Transaction.findById(transactionId);
 				return transaction;
