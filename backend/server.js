@@ -12,7 +12,6 @@ import mergedTypeDefs from "./typeDefs/merge.js";
 import connectDB from "./db/connectDB.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -35,5 +34,6 @@ app.use(
 );
 
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+await connectDB();
 
 console.log(`🚀 Server ready at http://localhost:4000/`);
