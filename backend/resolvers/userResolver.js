@@ -10,6 +10,7 @@ const userResolver = {
 				return user;
 			} catch (error) {
 				console.log(`Error in authUser: ${error.message}`);
+				throw new Error("Internal Server Error");
 			}
 		},
 		user: async (_, { userId }) => {
@@ -18,6 +19,7 @@ const userResolver = {
 				return user;
 			} catch (error) {
 				console.log(`Error in user query: ${error.message}`);
+				throw new Error("Internal Server Error");
 			}
 		},
 	},
@@ -54,6 +56,7 @@ const userResolver = {
 				return newUser;
 			} catch (error) {
 				console.log(`Error in signUp: `, error.message);
+				throw new Error("Internal Server Error");
 			}
 		},
 
@@ -69,6 +72,7 @@ const userResolver = {
 				return user;
 			} catch (error) {
 				console.log(`Error in login: `, error.message);
+				throw new Error("Internal Server Error");
 			}
 		},
 
@@ -82,6 +86,7 @@ const userResolver = {
 				return { message: "Logged out success!" };
 			} catch (error) {
 				console.log(`Error in logout: `, error.message);
+				throw new Error("Internal Server Error");
 			}
 		},
 	},
