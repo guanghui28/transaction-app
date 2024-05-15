@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const HomePage = () => {
-	const [logout, { loading }] = useMutation(LOG_OUT, {
+	const [logout, { loading, client }] = useMutation(LOG_OUT, {
 		refetchQueries: ["GetAuthenticatedUser"],
 	});
 
@@ -43,6 +43,7 @@ const HomePage = () => {
 	const handleLogout = async () => {
 		try {
 			await logout();
+			client.resetStore();
 		} catch (error) {
 			toast.error(error.message);
 		}
